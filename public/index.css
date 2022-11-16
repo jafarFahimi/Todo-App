@@ -12,3 +12,8 @@
   width: 540px;
   height: 540px;
 }
+
+ul{
+  list-style-type: none;
+  padding:0;
+}
