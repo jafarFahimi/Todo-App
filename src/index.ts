@@ -9,7 +9,8 @@ type taskType = {
 const list = document.querySelector<HTMLUListElement>('#list'); // .getElementById don't has this generic func <>
 const form = document.getElementById('new-task-form') as HTMLFormElement | null;
 const input = document.querySelector<HTMLInputElement>('#new-task-title');
-let tasks: taskType[] = [];
+let tasks: taskType[] = loadTasks();
+tasks.forEach(addListItem);
 form?.addEventListener('submit', (e) => {
   e.preventDefault();
   if (input?.value == '' || input?.value == null) return;
@@ -33,10 +34,20 @@ function addListItem(task: taskType) {
   checkBox.checked = task.completed;
   checkBox.addEventListener('change', () => {
     task.completed = checkBox.checked;
+    saveTasks();
   });
   label.append(checkBox, task.title);
   li.append(label);
   list?.append(li);
+}
+
+function saveTasks() {
+  localStorage.setItem('TASKS', JSON.stringify(tasks));
+}
+function loadTasks(): taskType[] {
+  const taskJson = localStorage.getItem('TASKS');
+  if (taskJson == null) return [];
+  return JSON.parse(taskJson);
 }
 
 export {};
