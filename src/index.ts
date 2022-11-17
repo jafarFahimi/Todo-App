@@ -26,8 +26,8 @@ form?.addEventListener('submit', (e) => {
     createdAt: new Date(),
   };
 
-  addListItem(newTask);
   tasks.push(newTask);
+  addListItem(newTask);
   input.value = ''; // empty after adding 1 task
 });
 
@@ -39,11 +39,11 @@ function addListItem(task: taskType) {
   checkBox.checked = task.completed;
   checkBox.addEventListener('change', () => {
     task.completed = checkBox.checked;
-    saveTasks();
   });
   label.append(checkBox, task.title);
   li.append(label);
   list?.append(li);
+  saveTasks();
 }
 
 function saveTasks() {
