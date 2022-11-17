@@ -1,4 +1,6 @@
 import { v4 as uuidV4 } from 'uuid';
+// import {v4 as myName} from 'uuid';
+
 type taskType = {
   id: string;
   title: string;
@@ -9,8 +11,10 @@ type taskType = {
 const list = document.querySelector<HTMLUListElement>('#list'); // .getElementById don't has this generic func <>
 const form = document.getElementById('new-task-form') as HTMLFormElement | null;
 const input = document.querySelector<HTMLInputElement>('#new-task-title');
+
 let tasks: taskType[] = loadTasks();
 tasks.forEach(addListItem);
+
 form?.addEventListener('submit', (e) => {
   e.preventDefault();
   if (input?.value == '' || input?.value == null) return;
@@ -21,6 +25,7 @@ form?.addEventListener('submit', (e) => {
     completed: false,
     createdAt: new Date(),
   };
+
   addListItem(newTask);
   tasks.push(newTask);
   input.value = ''; // empty after adding 1 task
